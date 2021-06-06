@@ -1,6 +1,9 @@
 {
   "name": "imdb",
   "version": "1.0.0",
+  "engines": {
+    "node": "version"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
