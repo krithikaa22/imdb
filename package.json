@@ -2,7 +2,8 @@
   "name": "imdb",
   "version": "1.0.0",
   "engines": {
-    "node": "version"
+    "node": "16.0.0",
+    "npm": "7.10.0"
   },
   "description": "",
   "main": "server.js",
