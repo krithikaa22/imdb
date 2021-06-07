@@ -22,7 +22,6 @@ router.get('/api/movies', (req,res) => {
 
 //edit route
 router.post('/api/movies/edit', (req,res) => {
-    console.log(req.body)
     let movieId = req.query.id
     movie.findByIdAndUpdate(movieId, req.body, {useFindAndModify: false})
     .then(data => {
@@ -51,9 +50,9 @@ router.post('/api/movies/review/:id/:data', (req,res) => {
     let movieId = req.params.id;
     movie.findByIdAndUpdate(movieId,{$push: {review: req.params.data}})
      .then(data => {
-        movie.findById(movieId)
-         .then(item => {
-             res.json({data: item})
+        movie.findById(movieId) 
+         .then(movie => {
+             res.json(movie)
          })
      })
     
@@ -64,7 +63,10 @@ router.post('/api/movies/review/:id/:data', (req,res) => {
 router.delete('/api/movies/:id' , (req,res) => {
     let movieId = req.params.id
     movie.findByIdAndDelete(movieId)
-     .then(() => {res.json({success: true})})
+     .then(() => {
+         movie.find()
+          .then(data => res.json({data: data}))
+     })
 })
 
 
@@ -81,7 +83,10 @@ router.post("/api/movies", (req,res) => {
     })
     Movie
         .save(Movie)
-        .then(data => res.json(data))
+        .then(data => res.json({data: data}) /*{
+            movie.find()
+             .then(movies => res.json({data: movies}))}*/
+        )
         .catch(err => console.log(err.message))
 })
 
